@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"L:\\\\Workspace\\\\markplaza\\\\.claude\\\\worktrees\\\\jolly-jang-fe3985\" -Name | Where-Object { $_ -ne \"node_modules\" })",
+      "PowerShell(Get-ChildItem \"L:\\\\Workspace\\\\markplaza\" -Name | Where-Object { $_ -ne \"node_modules\" -and $_ -ne \".git\" -and $_ -ne \".claude\" })"
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MarkPlaza — Emerald Velvet design tokens
+   Portados de Plaza Marks V2 (Stitch project 3197217780565975981).
+   ============================================================ */
+
+@theme inline {
+  /* Surfaces (verde profundo del distrito) */
+  --color-background: #001711;
+  --color-surface: #06120b;
+  --color-surface-dim: #05100a;
+  --color-surface-bright: #1a3a2a;
+  --color-surface-container-lowest: #00110c;
+  --color-surface-container-low: #081810;
+  --color-surface-container: #081c11;
+  --color-surface-container-high: #0d2117;
+  --color-surface-container-highest: #122a1e;
+
+  /* Texto sobre superficies */
+  --color-on-background: #c2ebdc;
+  --color-on-surface: #e1e8e4;
+  --color-on-surface-variant: #b8c7be;
+
+  /* Champagne primary (acento principal) */
+  --color-primary: #e5d3b2;
+  --color-primary-fixed: #e5d3b2;
+  --color-primary-fixed-dim: #d4c19d;
+  --color-primary-container: #c9b68d;
+  --color-on-primary: #2c2410;
+  --color-on-primary-container: #2c2410;
+
+  /* Verde tertiary (acento alternativo, usado en Visión) */
+  --color-tertiary: #95d3ba;
+  --color-tertiary-container: #064e3b;
+  --color-on-tertiary: #003824;
+
+  /* Outlines */
+  --color-outline: #8a816b;
+  --color-outline-variant: #4d4635;
+
+  /* Tipografía (definidas por next/font en layout.tsx) */
+  --font-serif: var(--font-noto-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+
+  /* Radius (round twelve) */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+}
+
+/* Base */
+html {
+  background-color: var(--color-surface-container-lowest);
+  color: var(--color-on-background);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-container-lowest);
+  color: var(--color-on-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-tertiary-container);
+  color: var(--color-on-tertiary);
+}
+
+/* ============================================================
+   Utilidades reutilizables (portadas de los HTML Stitch)
+   ============================================================ */
+
+@layer utilities {
+  .glass-panel {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    background: linear-gradient(
+      135deg,
+      rgba(6, 40, 24, 0.4) 0%,
+      rgba(2, 20, 12, 0.2) 100%
+    );
+    border: 1px solid rgba(229, 211, 178, 0.15);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  }
+
+  .glass-panel-soft {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: rgba(149, 211, 186, 0.05);
+    border: 1px solid rgba(211, 197, 173, 0.15);
+  }
+
+  .gold-glow {
+    box-shadow: 0 0 20px rgba(229, 211, 178, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .gold-glow:hover {
+    box-shadow: 0 0 35px rgba(229, 211, 178, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .gold-text-glow {
+    text-shadow:
+      0 0 15px rgba(229, 211, 178, 0.5),
+      0 0 30px rgba(229, 211, 178, 0.2);
+  }
+
+  .input-glass {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(229, 211, 178, 0.08);
+    transition: all 0.3s ease;
+  }
+  .input-glass:focus {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(229, 211, 178, 0.4);
+    box-shadow: inset 0 0 10px rgba(229, 211, 178, 0.05);
+    outline: none;
+  }
+
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(211, 197, 173, 0.6),
+      transparent
+    );
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float {
+      animation: none;
+    }
+  }
+}
