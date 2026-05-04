@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mv README.bak /tmp/markplaza-README.bak)",
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias \"@/*\" --use-npm --turbopack --yes)",
+      "Bash(npm install *)",
+      "Bash(mkdir -p public/images)",
+      "Bash(cp /tmp/stitch-plaza/portal.png public/images/portal-distrito.png)",
+      "Bash(cp /tmp/stitch-plaza/acceso.png public/images/login-screenshot-ref.png)",
+      "Bash(cp /tmp/stitch-plaza/vision.png public/images/vision-screenshot-ref.png)",
+      "Bash(cp /tmp/stitch-plaza/concierge.png public/images/concierge-screenshot-ref.png)",
+      "Bash(curl -sSL -A \"Mozilla/5.0\" -o public/images/contacto-bg-ciudad.jpg \"https://images.unsplash.com/photo-1449156006073-9547127ceec3?auto=format&fit=crop&q=80&w=2070\")",
+      "Bash(curl -v -L -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36\" \"https://images.unsplash.com/photo-1449156006073-9547127ceec3?auto=format&fit=crop&q=80&w=2070\" -o public/images/contacto-bg-ciudad.jpg)",
+      "Bash(rm public/images/contacto-bg-ciudad.jpg)",
+      "Bash(mkdir -p docs/references)",
+      "Bash(mv public/images/login-screenshot-ref.png public/images/vision-screenshot-ref.png public/images/concierge-screenshot-ref.png docs/references/)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/motion/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(JSON.stringify\\(require\\('./node_modules/motion/package.json'\\).exports, null, 2\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(taskkill /PID 19260 /F)",
+      "PowerShell(Stop-Process -Id 19260 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(\"done\")"
+    ]
+  }
+}
