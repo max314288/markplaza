@@ -8,7 +8,7 @@ Construido con **Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Moti
 
 | Ruta | Pantalla |
 |---|---|
-| [`/`](app/page.tsx) | **Inicio** — escena 3D isométrica del distrito al atardecer con barra de búsqueda y dock inferior. |
+| [`/`](app/page.tsx) | **Inicio** — escena nocturna de la plaza con tres marketplaces interactivos (Amazon Store, eBay, Mercado Libre) que abren la tienda externa en una pestaña nueva. |
 | [`/login`](app/login/page.tsx) | **Acceso al portal** — card glass flotante con form de identidad. |
 | [`/nosotros`](app/nosotros/page.tsx) | **Visión** — manifiesto del distrito + secciones `#vision` y `#archivos`. |
 | [`/contacto`](app/contacto/page.tsx) | **Concierge** — formulario de consulta + canales directos + mapa. |
@@ -39,7 +39,7 @@ components/
   layout/           # SiteHeader, SiteFooter
   ui/               # GlassPanel, Button, Input, Divider (primitivos)
   motion/           # FadeIn, Float (wrappers Motion)
-  portal/           # Inicio: PortalScene, PortalDock
+  portal/           # Inicio: MarketplaceScene, PortalDock
   login/            # LoginCard
   vision/           # VisionHero, VisionShowcase
   contacto/         # InquiryForm, DirectChannels, MapWidget
@@ -58,7 +58,6 @@ Paleta única **Emerald Velvet** (`#06120b` + champagne `#e5d3b2`). Tokens en [a
 
 Todas las imágenes son locales en `public/images/`:
 
-- `portal-distrito.png` — escena 3D del Inicio
 - `login-bg-distrito.jpg` — fondo cinematográfico (Login y Contacto)
 - `vision-boutique.jpg` — boutique 3D del hero de Nosotros
 - `mapa-distrito.jpg` — mapa estilizado en Contacto

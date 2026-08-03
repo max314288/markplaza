@@ -1,12 +1,20 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { Field, Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
 import { Float } from "@/components/motion/Float";
 
 export function LoginCard() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setIsLoading(true);
+  }
+
   return (
     <Float className="w-full max-w-[520px]">
       <div className="glass-panel rounded-3xl p-10 md:p-14 flex flex-col items-center">
@@ -22,15 +30,14 @@ export function LoginCard() {
         </div>
 
         {/* Form */}
-        <form
-          className="w-full space-y-7"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="w-full space-y-7" onSubmit={handleSubmit}>
           <Field label="ID Universal">
             <Input
               type="email"
+              name="email"
               placeholder="residente@markplaza.com"
               autoComplete="email"
+              spellCheck={false}
             />
           </Field>
 
@@ -39,7 +46,7 @@ export function LoginCard() {
             trailing={
               <a
                 href="#"
-                className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-fixed-dim/60 hover:text-primary-fixed-dim transition-colors"
+                className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-fixed-dim/60 hover:text-primary-fixed-dim transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
               >
                 ¿Acceso perdido?
               </a>
@@ -47,17 +54,30 @@ export function LoginCard() {
           >
             <Input
               type="password"
+              name="password"
               placeholder="••••••••••••"
               autoComplete="current-password"
             />
           </Field>
 
-          <Button type="submit" variant="primary" className="w-full mt-8 py-5">
-            <span className="relative z-10">Entrar al distrito</span>
-            <ArrowRight
-              className="size-4 transition-transform group-hover:translate-x-1 relative z-10"
-              strokeWidth={2}
-            />
+          <Button
+            type="submit"
+            variant="primary"
+            className="w-full mt-8 py-5"
+            disabled={isLoading}
+            aria-busy={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+                <span>Entrando…</span>
+              </>
+            ) : (
+              <>
+                <span>Entrar al distrito</span>
+                <ArrowRight className="size-4" strokeWidth={2} aria-hidden="true" />
+              </>
+            )}
           </Button>
         </form>
 
@@ -78,7 +98,7 @@ export function LoginCard() {
           ¿Buscas residencia?{" "}
           <a
             href="#"
-            className="text-primary-fixed-dim font-semibold ml-1 hover:text-primary transition-colors border-b border-primary-fixed-dim/30 hover:border-primary"
+            className="text-primary-fixed-dim font-semibold ml-1 hover:text-primary transition-colors border-b border-primary-fixed-dim/30 hover:border-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
           >
             Solicita tu Atelier
           </a>

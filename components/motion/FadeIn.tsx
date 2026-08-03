@@ -1,6 +1,7 @@
 "use client";
 
 import * as motion from "motion/react-client";
+import { useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
 type FadeInProps = {
@@ -19,15 +20,16 @@ export function FadeIn({
   as = "div",
 }: FadeInProps) {
   const MotionTag = motion[as];
+  const prefersReduced = useReducedMotion();
 
   return (
     <MotionTag
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 0, y: prefersReduced ? 0 : y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{
-        duration: 0.8,
-        delay,
+        duration: prefersReduced ? 0 : 0.8,
+        delay: prefersReduced ? 0 : delay,
         ease: [0.4, 0, 0.2, 1],
       }}
       className={className}

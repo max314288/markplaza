@@ -40,6 +40,7 @@ export function VisionHero() {
         {pillars.map(({ icon: Icon, title, description }) => (
           <li key={title} className="flex gap-4 items-start">
             <Icon
+              aria-hidden="true"
               className="size-6 text-tertiary mt-1 shrink-0"
               strokeWidth={1.5}
             />

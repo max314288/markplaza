@@ -5,12 +5,13 @@ import { SiteFooter } from "@/components/layout/SiteFooter";
 import { InquiryForm } from "@/components/contacto/InquiryForm";
 import { DirectChannels } from "@/components/contacto/DirectChannels";
 import { MapWidget } from "@/components/contacto/MapWidget";
+import { SocialLinks } from "@/components/contacto/SocialLinks";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
-  title: "Contacto · Servicios de Concierge",
+  title: "Contacto · Atención al Cliente",
   description:
-    "Contacta con los stewards virtuales de MarkPlaza para personalización Atelier, adquisición de propiedad o soporte del distrito.",
+    "Contacta con el equipo de MarkPlaza para asistencia en tus compras, consultas sobre productos exclusivos o soporte de tu cuenta.",
 };
 
 export default function ContactoPage() {
@@ -42,13 +43,13 @@ export default function ContactoPage() {
         {/* Hero */}
         <FadeIn className="col-span-12">
           <h1 className="font-serif text-on-surface text-4xl md:text-5xl lg:text-[3rem] font-semibold mb-6 gold-text-glow">
-            Servicios de Concierge
+            Atención al Cliente
           </h1>
           <p className="font-serif text-on-surface-variant text-[18px] leading-relaxed max-w-3xl">
-            Conecta con nuestros stewards virtuales dedicados. Ya sea que busques
-            personalización arquitectónica a medida o consultas sobre propiedades,
-            nuestro escritorio está a tu disposición para una transición fluida
-            al distrito MarkPlaza.
+            Conecta con nuestro equipo de soporte especializado. Ya sea que busques
+            asesoramiento sobre productos exclusivos, asistencia con tus pedidos o
+            consultas generales, estamos a tu disposición para ofrecerte una experiencia
+            de compra fluida y premium en MarkPlaza.
           </p>
         </FadeIn>
 
@@ -60,11 +61,18 @@ export default function ContactoPage() {
         {/* Aside con canales + mapa */}
         <FadeIn
           as="section"
-          className="col-span-12 lg:col-span-5 space-y-10"
+          className="col-span-12 lg:col-span-5 flex flex-col gap-4"
           delay={0.2}
         >
-          <DirectChannels />
-          <MapWidget />
+          <DirectChannels className="flex-none" />
+          <MapWidget className="flex-1 min-h-[140px]" />
+          <SocialLinks
+            className="flex-none p-6"
+            whatsapp="https://wa.me/18888627529"
+            instagram="https://instagram.com/markplaza"
+            facebook="https://facebook.com/markplaza"
+            tiktok="https://tiktok.com/@markplaza"
+          />
         </FadeIn>
       </main>
 

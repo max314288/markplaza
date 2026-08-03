@@ -10,7 +10,7 @@ export function VisionShowcase() {
           alt="Boutique virtual del distrito MarkPlaza: arquitectura isométrica con paneles de cristal flotantes y vigas doradas, iluminada por luz ambiental bioluminiscente"
           fill
           sizes="(min-width: 1024px) 60vw, 100vw"
-          className="object-cover opacity-95 transition-transform duration-1000 group-hover:scale-105"
+          className="object-cover opacity-95 transition-transform duration-1000 motion-safe:group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent" />
       </div>

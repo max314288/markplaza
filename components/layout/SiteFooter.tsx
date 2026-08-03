@@ -1,8 +1,7 @@
 const links = [
   { label: "Privacidad", href: "#" },
   { label: "Términos", href: "#" },
-  { label: "Sostenibilidad", href: "#" },
-  { label: "Soporte", href: "#" },
+  { label: "Libro de Reclamaciones", href: "#" },
 ];
 
 export function SiteFooter() {
@@ -20,7 +19,10 @@ export function SiteFooter() {
             </a>
           ))}
         </div>
-        <p className="font-sans text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/30 text-center">
+        <p
+          suppressHydrationWarning
+          className="font-sans text-[10px] uppercase tracking-[0.4em] text-on-surface-variant/30 text-center"
+        >
           © {new Date().getFullYear()} MarkPlaza. Distrito Comercial Virtual.
         </p>
       </div>

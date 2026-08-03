@@ -6,9 +6,9 @@ import { VisionShowcase } from "@/components/vision/VisionShowcase";
 import { FadeIn } from "@/components/motion/FadeIn";
 
 export const metadata: Metadata = {
-  title: "Nosotros · La Visión",
+  title: "Nosotros · El Portal",
   description:
-    "MarkPlaza redefine el comercio espacial. Conoce la visión, los pilares y el archivo del distrito comercial virtual.",
+    "MarkPlaza redefine la experiencia de compra en línea. Conoce nuestra esencia y descubre un portal de compras exclusivo.",
 };
 
 export default function NosotrosPage() {

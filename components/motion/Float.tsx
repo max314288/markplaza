@@ -8,5 +8,5 @@ export function Float({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={cn("animate-float", className)}>{children}</div>;
+  return <div className={cn("motion-safe:animate-float", className)}>{children}</div>;
 }

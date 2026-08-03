@@ -29,7 +29,7 @@ export function Button<T extends ElementType = "button">({
   return (
     <Component
       className={cn(
-        "relative inline-flex items-center justify-center gap-3 rounded-xl px-8 py-4 font-sans text-[11px] font-semibold uppercase tracking-[0.3em] transition-all active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
+        "relative inline-flex items-center justify-center gap-3 rounded-xl px-8 py-4 font-sans text-[11px] font-semibold uppercase tracking-[0.3em] transition-[color,background-color,border-color,box-shadow,transform,opacity] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70 focus-visible:ring-offset-1 focus-visible:ring-offset-surface",
         variantClasses[variant],
         className,
       )}

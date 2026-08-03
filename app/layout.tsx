@@ -38,7 +38,9 @@ export default function RootLayout({
       className={`dark ${notoSerif.variable} ${manrope.variable}`}
     >
       <body className="min-h-screen bg-surface-container-lowest text-on-background">
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
       </body>
     </html>
   );

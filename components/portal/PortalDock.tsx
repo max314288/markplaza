@@ -13,7 +13,7 @@ type DockItem = {
 };
 
 const items: DockItem[] = [
-  { label: "Inicio", icon: Home, href: "/", active: true },
+  { label: "Distrito", icon: Home, href: "/", active: true },
   { label: "Nosotros", icon: ShoppingBag, href: "/nosotros" },
   { label: "Contacto", icon: Bell, href: "/contacto" },
 ];
@@ -27,16 +27,17 @@ export function PortalDock() {
             key={item.label}
             href={item.href}
             className={cn(
-              "group flex flex-col items-center gap-1 px-6 py-2 rounded-2xl transition-all",
+              "group flex flex-col items-center gap-1 px-6 py-2 rounded-2xl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70",
               item.active && "bg-primary/10",
             )}
           >
             <item.icon
+              aria-hidden="true"
               className={cn(
-                "size-5 transition-all",
+                "size-5 transition-[color,transform]",
                 item.active
                   ? "text-primary-fixed-dim"
-                  : "text-on-surface-variant/60 group-hover:text-primary-fixed-dim group-hover:scale-110",
+                  : "text-on-surface-variant/60 group-hover:text-primary-fixed-dim motion-safe:group-hover:scale-110",
               )}
               strokeWidth={1.5}
             />
