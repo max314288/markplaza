@@ -1,7 +1,7 @@
 const links = [
   { label: "Privacidad", href: "#" },
   { label: "Términos", href: "#" },
-  { label: "Libro de Reclamaciones", href: "#" },
+  { label: "Libro de Reclamaciones", href: "/libro-de-reclamaciones" },
 ];
 
 export function SiteFooter() {

@@ -24,7 +24,7 @@ export default function ContactoPage() {
           alt=""
           aria-hidden
           fill
-          priority
+          preload
           sizes="100vw"
           className="object-cover scale-105 opacity-25 mix-blend-luminosity"
         />
@@ -39,7 +39,7 @@ export default function ContactoPage() {
 
       <SiteHeader />
 
-      <main className="relative z-10 pt-44 pb-20 max-w-[1440px] mx-auto px-6 md:px-10 grid grid-cols-12 gap-x-10 gap-y-12">
+      <div className="relative z-10 pt-44 pb-20 max-w-[1440px] mx-auto px-6 md:px-10 grid grid-cols-12 gap-x-10 gap-y-12">
         {/* Hero */}
         <FadeIn className="col-span-12">
           <h1 className="font-serif text-on-surface text-4xl md:text-5xl lg:text-[3rem] font-semibold mb-6 gold-text-glow">
@@ -74,7 +74,7 @@ export default function ContactoPage() {
             tiktok="https://tiktok.com/@markplaza"
           />
         </FadeIn>
-      </main>
+      </div>
 
       <SiteFooter />
     </div>

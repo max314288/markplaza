@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./plaza.css";
 
 /* ============================================================
    MarkPlaza — Emerald Velvet design tokens
@@ -39,6 +40,21 @@
   --color-outline: #8a816b;
   --color-outline-variant: #4d4635;
 
+  /* ----------------------------------------------------------
+     "Plaza de día" — paleta de la escena ilustrada de `/`.
+     Muestreada de docs/disegnefront/ORIGINAL.png. Solo la usa la
+     portada; las utilidades son opt-in, no filtran al tema oscuro.
+     ---------------------------------------------------------- */
+  --color-plaza-cream: #fbf9ed;
+  --color-plaza-ink: #6f695c;
+  --color-plaza-ink-soft: #837c6e;
+  --color-plaza-ink-strong: #4b463d;
+  --color-plaza-plate: #3b3730;
+  --color-plaza-green: #839d80;
+  --color-plaza-green-dim: #6e8a6b;
+  --color-plaza-road: #8e877d;
+  --color-plaza-walk: #ded6c3;
+
   /* Tipografía (definidas por next/font en layout.tsx) */
   --font-serif: var(--font-noto-serif), ui-serif, Georgia, serif;
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
@@ -66,9 +82,34 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*
+  La portada `/` es clara. Estas reglas van SIN `@layer` a propósito: las de
+  `html`/`body` de arriba tampoco están en una capa y ganarían a cualquier
+  utilidad de Tailwind. `#plaza-dia` solo existe en la portada, así que el
+  resto del sitio conserva Emerald Velvet.
+*/
+html:has(#plaza-dia),
+html:has(#plaza-dia) body {
+  background-color: var(--color-plaza-cream);
+  color: var(--color-plaza-ink);
+  color-scheme: light;
+}
+
+@media (min-width: 768px) {
+  html:has(#plaza-dia),
+  html:has(#plaza-dia) body {
+    overflow: hidden;
+  }
+}
+
 ::selection {
   background: var(--color-tertiary-container);
   color: var(--color-on-tertiary);
+}
+
+html:has(#plaza-dia) ::selection {
+  background: var(--color-plaza-green);
+  color: var(--color-plaza-cream);
 }
 
 /* ============================================================

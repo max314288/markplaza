@@ -19,7 +19,7 @@ export default function LoginPage() {
           alt=""
           aria-hidden
           fill
-          priority
+          preload
           sizes="100vw"
           className="object-cover scale-105 opacity-30 mix-blend-luminosity"
         />
@@ -27,9 +27,9 @@ export default function LoginPage() {
       </div>
 
       {/* Contenido */}
-      <main className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
         <LoginCard />
-      </main>
+      </div>
 
       {/* Footer minimalista */}
       <footer className="fixed bottom-0 left-0 right-0 z-20 px-10 pb-10">

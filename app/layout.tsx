@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   description:
     "MarkPlaza es un portal de tiendas premium: arquitectura digital, comercio espacial y experiencias curadas para residentes y visitantes del distrito.",
-  metadataBase: new URL("https://markplaza.local"),
+  metadataBase: new URL("https://savemarks.com"),
 };
 
 export default function RootLayout({

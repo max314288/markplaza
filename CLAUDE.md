@@ -27,14 +27,60 @@ There is no test suite. Type errors surface through `npm run build` or the TypeS
 
 ### Routing
 
-App Router with four routes: `/` (portal), `/nosotros`, `/contacto`, `/login`.
+App Router: `/` (portal), `/nosotros`, `/contacto`, `/login`, `/tiendas`, `/tiendas/[slug]`,
+`/libro-de-reclamaciones`. `SHOPS`/`MARKETS` (`lib/plaza/shops.ts`) are the single source of shop
+data — `/`, `/tiendas`, and `/tiendas/[slug]` (`generateStaticParams`) all read from it.
 
-Two layout patterns exist — do not mix them:
-- **Portal layout** (`/`): fullscreen immersive, no SiteHeader/SiteFooter, uses `MarketplaceScene` (SVG hero con Amazon Store / eBay / Mercado Libre) + `PortalDock`.
-- **Standard layout** (`/nosotros`, `/contacto`): `SiteHeader` + `<main>` + `SiteFooter`, max-w-[1440px] centered content.
+### Deploy — static export
+
+`next.config.ts` sets `output: "export"` + `trailingSlash: true` + `images.unoptimized`: the site is
+hosted on GoDaddy shared hosting (Apache, no Node). `npm run build` writes `out/`, whose contents go
+into `public_html`. Consequences:
+- No Server Actions, route handlers with dynamic logic, `proxy`, ISR, or cookies/headers at request time.
+- `next/image` does **not** optimize — compress assets before putting them in `public/` (WebP for big images).
+- `public/.htaccess` is copied to `out/` (404 page, caching).
+- Asset filenames are lowercase kebab-case: Apache on Linux is case-sensitive, Windows is not.
+- `postbuild` runs `scripts/fix-export-windows.mjs` automatically after every `npm run build`. On
+  Windows, Next 16's exporter writes each route's RSC prefetch segments into a subfolder instead of
+  flattening the path into the filename (`__next.login/__PAGE__.txt` instead of
+  `__next.login.__PAGE__.txt`), which 404s at runtime. The script flattens them; it's a no-op on
+  Linux/macOS. Always test `out/` served statically (not just `npm run dev`) after touching routing.
+- No backend: `/login` and the `/contacto` form (`InquiryForm`) call `e.preventDefault()` and submit
+  nothing. `/libro-de-reclamaciones` (`ComplaintBook`) fakes submission by building a `mailto:` link
+  client-side — not a legally compliant Libro de Reclamaciones (no correlativo), just a stopgap.
+
+Three layout patterns exist — do not mix them:
+- **Portal layout** (`/`): fullscreen illustrated day scene, light palette, no SiteHeader/SiteFooter. See "Plaza scene" below.
+- **Standard layout** (`/nosotros`, `/contacto`, `/tiendas`, `/tiendas/[slug]`): `SiteHeader` + `SiteFooter`, dark Emerald Velvet, max-w-[1440px] centered content.
 - **Standalone layout** (`/login`): no shared nav, self-contained page with its own footer.
 
 The root `app/layout.tsx` wraps children in `<main id="main-content">` — the skip link in `SiteHeader` targets this id.
+
+### Plaza scene — the `/` portal
+
+The home page reproduces `docs/disegnefront/ORIGINAL.png` (1376×768 hand-drawn street) by
+compositing the layered PNGs in `public/escena/` over the clean background plate `fondo-plaza.webp`
+(lossless source: `docs/disegnefront/fondo-plaza-original.png`).
+
+- **Design canvas is 1376×768.** Every measurement in `lib/plaza/manifest.ts` and `app/plaza.css`
+  is in px of that canvas. `--px` (defined on `.plaza-frame`, in `cqw`) equals exactly 1 canvas px,
+  so measurements taken off the reference image go into the code literally:
+  `font-size: calc(89 * var(--px))`.
+- **Sprites are trim-aware.** Each PNG has transparent padding. `Sprite.box` is where the *drawing*
+  must land; `Sprite.trim` is where the drawing sits inside the PNG. `frame()` combines both.
+  Positioning a raw PNG at `box` renders it too small and offset.
+- **Layer order** (`PlazaScene.tsx`): background → pole signs → shops (facade + plate + text) →
+  props → `PlazaAmbience` (cars, walkers) → sign hotspots. The pole signs are clipped with
+  `clip-path: inset(...)`, never with `height` + `overflow` — a shorter layer would rebase the
+  `top:%` of every sprite inside it.
+- **Shop nameplate PNGs are blank**; the label is real DOM text on top.
+- **Hit areas** use `clip-path: polygon(...)` on the anchor (it clips hit-testing too, so
+  transparent corners don't swallow clicks). `clip-path` also clips `outline`/`box-shadow`, so the
+  focus ring lives on a separate unclipped `<span>` driven by `group-has-[a:focus-visible]:`.
+- The light palette is scoped by `html:has(#plaza-dia)` in `globals.css`, written **outside any
+  `@layer`** — the existing `html {}` / `body {}` rules are unlayered and would otherwise win.
+- If the H1 or subtitle copy changes, re-measure its width: the title is sized to occupy the same
+  946 px band as the reference.
 
 ### Design system — Emerald Velvet
 
@@ -88,6 +134,6 @@ import { useReducedMotion } from "motion/react";
 
 - Decorative icons: `aria-hidden="true"` on the Lucide icon component
 - Icon-only interactive elements: `aria-label` on the button/link
-- Focus styles: `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70` — never `outline-none` without a replacement
+- Focus styles: `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70` — never `outline-none` without a replacement. On the plaza scene the ring is `ring-plaza-ink-strong` sized in `--px`.
 - Scale/transform hover animations: prefix with `motion-safe:` (e.g., `motion-safe:group-hover:scale-110`)
 - Avoid `transition-all` — list properties explicitly (e.g., `transition-[color,transform]`)

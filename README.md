@@ -1,17 +1,19 @@
 # MarkPlaza
 
-> Sitio web para MarkPlaza — un distrito comercial virtual premium.
+> Sitio web para MarkPlaza — un distrito comercial virtual.
 
-Construido con **Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Motion · lucide-react**, basado en los diseños del proyecto Stitch _Plaza Marks V2_.
+Construido con **Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Motion · lucide-react**. Se publica como **sitio estático** (`output: "export"`).
 
-## Páginas v1
+## Páginas
 
 | Ruta | Pantalla |
 |---|---|
-| [`/`](app/page.tsx) | **Inicio** — escena nocturna de la plaza con tres marketplaces interactivos (Amazon Store, eBay, Mercado Libre) que abren la tienda externa en una pestaña nueva. |
-| [`/login`](app/login/page.tsx) | **Acceso al portal** — card glass flotante con form de identidad. |
-| [`/nosotros`](app/nosotros/page.tsx) | **Visión** — manifiesto del distrito + secciones `#vision` y `#archivos`. |
-| [`/contacto`](app/contacto/page.tsx) | **Concierge** — formulario de consulta + canales directos + mapa. |
+| [`/`](app/page.tsx) | **Inicio** — calle ilustrada de día: cinco tiendas clicables y letreros de Amazon, eBay y Mercado Libre (abren en pestaña nueva). |
+| [`/tiendas`](app/tiendas/page.tsx) | **Directorio** de las cinco tiendas. |
+| [`/tiendas/[slug]`](app/tiendas/[slug]/page.tsx) | **Ficha de tienda** (placeholder "Próximamente"). |
+| [`/nosotros`](app/nosotros/page.tsx) | **Visión** — manifiesto del distrito. |
+| [`/contacto`](app/contacto/page.tsx) | **Atención al cliente** — formulario, canales directos y mapa. |
+| [`/login`](app/login/page.tsx) | **Acceso** — solo visual, sin autenticación. |
 
 ## Cómo arrancar
 
@@ -25,45 +27,41 @@ Abre [http://localhost:3000](http://localhost:3000).
 ## Scripts
 
 ```bash
-npm run dev     # Dev server con Turbopack
-npm run build   # Build de producción
-npm start       # Servir el build
+npm run dev     # Dev server
+npm run build   # Build estático -> carpeta out/
 npm run lint    # ESLint
 ```
+
+## Publicar (GoDaddy / cPanel)
+
+1. `npm run build` → genera `out/`.
+2. En cPanel → Administrador de archivos → `public_html`: borrar el contenido anterior.
+3. Subir **el contenido** de `out/` (no la carpeta), incluido `.htaccess` (archivo oculto).
+4. Cuando el SSL del dominio esté activo, descomentar el bloque "Forzar HTTPS" en `public/.htaccess` y volver a publicar.
 
 ## Estructura
 
 ```
-app/                # App Router (4 rutas)
+app/                  # App Router
+  plaza.css           # Escena de la portada (medidas en px del lienzo 1376x768)
 components/
-  layout/           # SiteHeader, SiteFooter
-  ui/               # GlassPanel, Button, Input, Divider (primitivos)
-  motion/           # FadeIn, Float (wrappers Motion)
-  portal/           # Inicio: MarketplaceScene, PortalDock
-  login/            # LoginCard
-  vision/           # VisionHero, VisionShowcase
-  contacto/         # InquiryForm, DirectChannels, MapWidget
-lib/utils.ts        # cn()
-public/images/      # Assets (descargados de Stitch)
+  plaza/              # Portada: PlazaScene, ShopFront, MarketSign, PlazaAmbience, PlazaHud, Sprite
+  layout/             # SiteHeader, SiteFooter
+  ui/                 # GlassPanel, Button, Input, Divider
+  motion/             # FadeIn, Float
+  login/ vision/ contacto/
+lib/plaza/            # manifest.ts (posición de cada sprite), shops.ts (tiendas + marketplaces)
+public/escena/        # Sprites de la portada (PNG) + fondo-plaza.webp
+public/images/        # Fotos de Login, Nosotros y Contacto
 docs/
-  design-tokens.md  # Mapa de tokens Emerald Velvet
-  references/       # Screenshots de referencia (no se sirven)
+  disegnefront/       # ORIGINAL.png (referencia) + fondo original sin comprimir (no se publican)
+  references/         # Capturas de referencia (no se publican)
 ```
-
-## Design system
-
-Paleta única **Emerald Velvet** (`#06120b` + champagne `#e5d3b2`). Tokens en [app/globals.css](app/globals.css). Detalles y convenciones en [docs/design-tokens.md](docs/design-tokens.md).
 
 ## Imágenes
 
-Todas las imágenes son locales en `public/images/`:
-
-- `login-bg-distrito.jpg` — fondo cinematográfico (Login y Contacto)
-- `vision-boutique.jpg` — boutique 3D del hero de Nosotros
-- `mapa-distrito.jpg` — mapa estilizado en Contacto
-
-Sustituir cualquier archivo por una versión propia con el mismo nombre no requiere cambios de código.
+Nombres en minúsculas con guiones (el servidor Linux distingue mayúsculas). Sin optimizador de imágenes en el hosting: comprimir antes de subir a `public/`. Las rutas de los sprites viven solo en [`lib/plaza/manifest.ts`](lib/plaza/manifest.ts).
 
 ## Sin backend
 
-v1 es estrictamente presentacional: los formularios de Login y Contacto hacen `e.preventDefault()` y no envían datos. No hay catálogo de tiendas, carrito, autenticación ni base de datos.
+Los formularios de Login y Contacto hacen `e.preventDefault()` y no envían datos. No hay usuarios, base de datos ni catálogo.

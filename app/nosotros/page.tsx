@@ -26,7 +26,7 @@ export default function NosotrosPage() {
 
       <SiteHeader />
 
-      <main className="relative z-10 pt-36 pb-20 max-w-[1440px] mx-auto px-6 md:px-10">
+      <div className="relative z-10 pt-36 pb-20 max-w-[1440px] mx-auto px-6 md:px-10">
         {/* Hero principal */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center min-h-[70vh]">
           <FadeIn className="lg:col-span-5">
@@ -77,7 +77,7 @@ export default function NosotrosPage() {
             <div className="gold-divider w-24 mx-auto opacity-50" />
           </FadeIn>
         </section>
-      </main>
+      </div>
 
       <SiteFooter />
     </div>

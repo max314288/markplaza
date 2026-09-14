@@ -1,11 +1,20 @@
-import { MarketplaceScene } from "@/components/portal/MarketplaceScene";
-import { PortalDock } from "@/components/portal/PortalDock";
+import type { Viewport } from "next";
+import { PlazaScene } from "@/components/plaza/PlazaScene";
+import { PlazaActions, PlazaHeadline } from "@/components/plaza/PlazaHud";
+
+export const viewport: Viewport = {
+  themeColor: "#fbf9ed",
+  colorScheme: "light",
+};
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-surface-container-lowest">
-      <MarketplaceScene />
-      <PortalDock />
-    </main>
+    <div id="plaza-dia" className="plaza-page">
+      <div className="plaza-frame">
+        <PlazaHeadline />
+        <PlazaScene />
+        <PlazaActions />
+      </div>
+    </div>
   );
 }

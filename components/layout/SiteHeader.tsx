@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { label: "Distrito", href: "/" as const },
+  { label: "Tiendas", href: "/tiendas" as const },
   { label: "Nosotros", href: "/nosotros" as const },
   { label: "Contacto", href: "/contacto" as const },
 ];
@@ -15,7 +16,8 @@ const focusRing =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded";
 
 export function SiteHeader() {
-  const pathname = usePathname();
+  // `trailingSlash: true` (export estático) puede dejar `/tiendas/`.
+  const pathname = usePathname().replace(/(.)\/$/, "$1");
 
   return (
     <>
@@ -43,7 +45,8 @@ export function SiteHeader() {
               const isActive =
                 item.href === "/"
                   ? pathname === "/"
-                  : pathname === item.href.split("#")[0];
+                  : pathname === item.href ||
+                    pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.label}

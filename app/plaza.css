@@ -1,0 +1,284 @@
+/* ============================================================
+   Escena del distrito (`/`) — "Plaza de día"
+
+   Todo el layout se expresa en px del lienzo de diseño 1376x768 de
+   `docs/disegnefront/ORIGINAL.png`: `--px` vale exactamente 1 px de ese
+   lienzo, así que las medidas medidas sobre la imagen entran literales
+   (`calc(92 * var(--px))`) y la composición se conserva a cualquier ancho.
+   ============================================================ */
+
+.plaza-page {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  width: 100%;
+  background-color: var(--color-plaza-cream);
+  color: var(--color-plaza-ink);
+}
+
+.plaza-frame {
+  position: relative;
+  /* Entra completo en alto y en ancho: nunca hay scroll vertical. */
+  width: min(100%, calc(100svh * 1376 / 768));
+  aspect-ratio: 1376 / 768;
+  margin-inline: auto;
+  display: grid;
+  container-type: size;
+  container-name: plaza;
+  --px: 0.0726744cqw; /* 100 / 1376 */
+}
+
+.plaza-frame > * {
+  grid-area: 1 / 1;
+  position: relative;
+}
+
+.plaza-stage {
+  overflow: hidden;
+  background-color: var(--color-plaza-cream);
+}
+
+/* ---------- Titular ---------- */
+
+.plaza-headline,
+.plaza-actions {
+  /* Por encima de la escena: comparten celda de grid con `.plaza-stage`. */
+  z-index: 2;
+  pointer-events: none;
+}
+
+.plaza-headline > *,
+.plaza-actions > * {
+  pointer-events: auto;
+}
+
+.plaza-title {
+  position: absolute;
+  inset-inline: 0;
+  /* 41.5 sitúa el alto de mayúscula en y=57, como en ORIGINAL.png. */
+  top: calc(41.5 * var(--px));
+  font-family: var(--font-serif);
+  font-size: calc(89 * var(--px));
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: calc(-0.5 * var(--px));
+  color: var(--color-plaza-ink);
+}
+
+.plaza-subtitle {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(139 * var(--px));
+  margin-inline: auto;
+  max-width: calc(920 * var(--px));
+  font-family: var(--font-serif);
+  font-size: calc(22 * var(--px));
+  line-height: 1;
+  text-align: center;
+  color: var(--color-plaza-ink-soft);
+}
+
+/* ---------- Acciones ---------- */
+
+.plaza-cta {
+  position: absolute;
+  left: 50%;
+  top: calc(617 * var(--px));
+  translate: -50% 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(336 * var(--px));
+  height: calc(62 * var(--px));
+  border-radius: calc(12 * var(--px));
+  background-color: var(--color-plaza-green);
+  color: var(--color-plaza-cream);
+  font-family: var(--font-sans);
+  font-size: calc(23 * var(--px));
+  font-weight: 500;
+  letter-spacing: calc(1.4 * var(--px));
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 calc(3 * var(--px)) calc(10 * var(--px)) rgb(0 0 0 / 0.14);
+  transition:
+    background-color 0.3s ease,
+    translate 0.3s ease;
+}
+
+.plaza-cta:hover {
+  background-color: var(--color-plaza-green-dim);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .plaza-cta:hover {
+    translate: -50% calc(-2 * var(--px));
+  }
+}
+
+.plaza-nav {
+  position: absolute;
+  inset-inline: 0;
+  top: calc(729 * var(--px));
+  display: flex;
+  justify-content: center;
+  gap: calc(46 * var(--px));
+  font-family: var(--font-sans);
+  font-size: calc(16 * var(--px));
+  line-height: 1;
+  color: var(--color-plaza-ink-soft);
+}
+
+.plaza-nav a {
+  transition: color 0.25s ease;
+}
+
+.plaza-nav a:hover {
+  color: var(--color-plaza-ink-strong);
+}
+
+/* Lista táctil: solo móvil, ver la media query de abajo. */
+.plaza-touch-list {
+  display: none;
+}
+
+/* ---------- Halo de los letreros ---------- */
+
+.plaza-glow {
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(250 214 120 / 0.55),
+    rgb(250 214 120 / 0) 72%
+  );
+  opacity: 0.45;
+  animation: plaza-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes plaza-glow {
+  from {
+    opacity: 0.32;
+  }
+  to {
+    opacity: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plaza-glow {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Móvil: la escena letterboxeada quedaría de ~210 px de alto y el
+   titular de 25 px. Se desapila en flujo normal y el HUD recupera
+   tamaños absolutos.
+   ============================================================ */
+
+@media (max-width: 767px) {
+  .plaza-page {
+    place-items: start center;
+    padding-block: 2rem 3rem;
+  }
+
+  .plaza-frame {
+    width: 100%;
+    aspect-ratio: auto;
+    /* `size` colapsaría la altura a cero al soltar el aspect-ratio. */
+    container-type: inline-size;
+    grid-template-rows: auto auto auto;
+    gap: 1.75rem;
+  }
+
+  .plaza-frame > * {
+    grid-area: auto;
+  }
+
+  .plaza-stage {
+    aspect-ratio: 1376 / 768;
+  }
+
+  .plaza-headline,
+  .plaza-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-inline: 1.25rem;
+  }
+
+  .plaza-title,
+  .plaza-subtitle,
+  .plaza-cta,
+  .plaza-nav {
+    position: static;
+    translate: none;
+    inset: auto;
+    top: auto;
+  }
+
+  .plaza-title {
+    font-size: clamp(28px, 8vw, 44px);
+    line-height: 1.1;
+    letter-spacing: normal;
+  }
+
+  .plaza-subtitle {
+    font-size: 15px;
+    line-height: 1.5;
+    max-width: 34ch;
+  }
+
+  .plaza-cta {
+    width: 100%;
+    max-width: 22rem;
+    min-height: 48px;
+    height: auto;
+    padding-block: 0.9rem;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    border-radius: 12px;
+  }
+
+  .plaza-cta:hover {
+    translate: none;
+  }
+
+  .plaza-nav {
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    font-size: 14px;
+  }
+
+  .plaza-touch-list {
+    display: block;
+    width: 100%;
+    max-width: 22rem;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--color-plaza-ink);
+  }
+
+  .plaza-touch-title {
+    margin-top: 1.25rem;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-plaza-ink-soft);
+  }
+
+  .plaza-touch-list ul {
+    margin-top: 0.5rem;
+    display: grid;
+    gap: 0.125rem;
+  }
+
+  .plaza-touch-list a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    border-bottom: 1px solid rgb(111 105 92 / 0.16);
+  }
+}
