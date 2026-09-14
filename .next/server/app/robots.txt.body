@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /login
+
+Sitemap: https://savemarks.com/sitemap.xml
