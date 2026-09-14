@@ -1,9 +1,0 @@
-{
-  "/_global-error/page": "/_global-error",
-  "/_not-found/page": "/_not-found",
-  "/contacto/page": "/contacto",
-  "/favicon.ico/route": "/favicon.ico",
-  "/login/page": "/login",
-  "/nosotros/page": "/nosotros",
-  "/page": "/"
-}
