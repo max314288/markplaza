@@ -12,22 +12,30 @@ type FieldProps = {
   label?: string;
   trailing?: ReactNode;
   containerClassName?: string;
+  /** Mensaje de error; cuando está presente se anuncia y liga al input. */
+  error?: string;
 };
 
 export function Field({
   label,
   trailing,
   containerClassName,
+  error,
   children,
 }: {
   label?: string;
   trailing?: ReactNode;
   containerClassName?: string;
+  error?: string;
   children: ReactNode;
 }) {
   const id = useId();
+  const errorId = useId();
   const child = isValidElement(children)
-    ? cloneElement(children as ReactElement<{ id?: string }>, { id })
+    ? cloneElement(children as ReactElement<{ id?: string; "aria-invalid"?: boolean; "aria-describedby"?: string }>, {
+        id,
+        ...(error && { "aria-invalid": true, "aria-describedby": errorId }),
+      })
     : children;
 
   return (
@@ -47,8 +55,13 @@ export function Field({
       )}
       <div className="relative group">
         {child}
-        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary-container/0 to-transparent group-focus-within:via-primary-container/40 transition-all duration-700" />
+        <div className="absolute inset-x-0 -bottom-px h-px bg-gradient-to-r from-transparent via-primary-container/0 to-transparent group-focus-within:via-primary-container/40 transition-[background-image] duration-700" />
       </div>
+      {error && (
+        <p id={errorId} role="alert" className="ml-1 font-sans text-[12px] text-error">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
@@ -60,7 +73,7 @@ export function Input({
   return (
     <input
       className={cn(
-        "w-full input-glass rounded-xl px-6 py-4 font-sans text-[15px] text-on-surface placeholder:text-white/15 border-0 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/50",
+        "w-full input-glass rounded-xl px-6 py-4 font-sans text-[15px] text-on-surface placeholder:text-on-surface-variant/50 border-0 focus:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/50",
         className,
       )}
       {...rest}
@@ -75,7 +88,7 @@ export function Textarea({
   return (
     <textarea
       className={cn(
-        "w-full input-glass rounded-xl px-6 py-4 font-sans text-[15px] text-on-surface placeholder:text-white/15 border-0 resize-none focus:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/50",
+        "w-full input-glass rounded-xl px-6 py-4 font-sans text-[15px] text-on-surface placeholder:text-on-surface-variant/50 border-0 resize-none focus:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/50",
         className,
       )}
       {...rest}

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { ComplaintBook } from "@/components/legal/ComplaintBook";
 
 export const metadata: Metadata = {
@@ -15,8 +14,12 @@ export default function LibroDeReclamacionesPage() {
     <div className="min-h-screen bg-surface-container-lowest relative overflow-hidden">
       <SiteHeader />
 
+      {/*
+        Formulario largo, pero arranca a la vista sin scroll: sin `FadeIn`
+        (dejaba la página en blanco durante el primer render).
+      */}
       <div className="relative z-10 pt-36 pb-24 max-w-[1440px] mx-auto px-6 md:px-10">
-        <FadeIn>
+        <div>
           <span className="font-sans text-[11px] font-bold text-primary-fixed-dim uppercase tracking-[0.4em] mb-6 block">
             Protección al consumidor
           </span>
@@ -27,11 +30,11 @@ export default function LibroDeReclamacionesPage() {
             Este establecimiento cuenta con un Libro de Reclamaciones a tu disposición. Puedes registrar
             aquí tu reclamo o queja; te responderemos en un plazo máximo de 15 días hábiles.
           </p>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.1} className="mt-14 max-w-3xl">
+        <div className="mt-14 max-w-3xl">
           <ComplaintBook />
-        </FadeIn>
+        </div>
       </div>
 
       <SiteFooter />

@@ -27,14 +27,18 @@ export default function NosotrosPage() {
       <SiteHeader />
 
       <div className="relative z-10 pt-36 pb-20 max-w-[1440px] mx-auto px-6 md:px-10">
-        {/* Hero principal */}
+        {/*
+          Hero a la vista sin scroll: sin `FadeIn` (dejaba la página en
+          blanco durante el primer render). Las secciones de abajo, que sí
+          requieren scroll, mantienen la animación.
+        */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center min-h-[70vh]">
-          <FadeIn className="lg:col-span-5">
+          <div className="lg:col-span-5">
             <VisionHero />
-          </FadeIn>
-          <FadeIn className="lg:col-span-7" delay={0.15}>
+          </div>
+          <div className="lg:col-span-7">
             <VisionShowcase />
-          </FadeIn>
+          </div>
         </section>
 
         {/* Sección Visión (manifiesto extendido) */}

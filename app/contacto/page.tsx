@@ -6,7 +6,6 @@ import { InquiryForm } from "@/components/contacto/InquiryForm";
 import { DirectChannels } from "@/components/contacto/DirectChannels";
 import { MapWidget } from "@/components/contacto/MapWidget";
 import { SocialLinks } from "@/components/contacto/SocialLinks";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { CONTACTO, REDES } from "@/lib/contacto";
 
 export const metadata: Metadata = {
@@ -41,8 +40,13 @@ export default function ContactoPage() {
       <SiteHeader />
 
       <div className="relative z-10 pt-44 pb-20 max-w-[1440px] mx-auto px-6 md:px-10 grid grid-cols-12 gap-x-10 gap-y-12">
-        {/* Hero */}
-        <FadeIn className="col-span-12">
+        {/*
+          Todo este bloque está a la vista sin hacer scroll: envolverlo en
+          `FadeIn` (opacity:0 hasta que el observer de scroll lo detecta)
+          dejaba la página en blanco durante el primer render. `FadeIn`
+          es para contenido que aparece más abajo, no para el hero.
+        */}
+        <div className="col-span-12">
           <h1 className="font-serif text-on-surface text-4xl md:text-5xl lg:text-[3rem] font-semibold mb-6 gold-text-glow">
             Atención al Cliente
           </h1>
@@ -52,19 +56,13 @@ export default function ContactoPage() {
             consultas generales, estamos a tu disposición para ofrecerte una experiencia
             de compra fluida y premium en MarkPlaza.
           </p>
-        </FadeIn>
+        </div>
 
-        {/* Form */}
-        <FadeIn className="col-span-12 lg:col-span-7" delay={0.1}>
+        <div className="col-span-12 lg:col-span-7">
           <InquiryForm />
-        </FadeIn>
+        </div>
 
-        {/* Aside con canales + mapa */}
-        <FadeIn
-          as="section"
-          className="col-span-12 lg:col-span-5 flex flex-col gap-4"
-          delay={0.2}
-        >
+        <section className="col-span-12 lg:col-span-5 flex flex-col gap-4">
           <DirectChannels className="flex-none" />
           <MapWidget className="flex-1 min-h-[140px]" />
           <SocialLinks
@@ -74,7 +72,7 @@ export default function ContactoPage() {
             facebook={REDES.facebook}
             tiktok={REDES.tiktok}
           />
-        </FadeIn>
+        </section>
       </div>
 
       <SiteFooter />

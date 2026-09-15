@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
-import { FadeIn } from "@/components/motion/FadeIn";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
 import { SHOPS, findShop } from "@/lib/plaza/shops";
@@ -35,8 +34,12 @@ export default async function TiendaPage(props: PageProps<"/tiendas/[slug]">) {
     <div className="min-h-screen bg-surface-container-lowest relative overflow-hidden">
       <SiteHeader />
 
+      {/*
+        Ficha de una sola pantalla, todo a la vista sin scroll: sin `FadeIn`
+        (que dejaba la página en blanco durante el primer render).
+      */}
       <div className="relative z-10 pt-36 pb-24 max-w-[1440px] mx-auto px-6 md:px-10">
-        <FadeIn>
+        <div>
           <Link
             href="/tiendas"
             className="inline-flex items-center gap-2 font-sans text-[10px] uppercase tracking-[0.3em] text-on-surface-variant/70 transition-colors hover:text-primary-fixed-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
@@ -56,7 +59,7 @@ export default async function TiendaPage(props: PageProps<"/tiendas/[slug]">) {
 
           <p className="font-serif text-on-surface-variant/70 text-[15px] leading-relaxed mt-10 max-w-xl">
             El catálogo de este local todavía está en obra. Mientras tanto,
-            puedes recorrer el resto del distrito o escribirnos al concierge.
+            puedes recorrer el resto del distrito o escribirnos por Contacto.
           </p>
 
           <div className="mt-10 flex flex-wrap gap-4">
@@ -67,7 +70,7 @@ export default async function TiendaPage(props: PageProps<"/tiendas/[slug]">) {
               Hablar con el concierge
             </Button>
           </div>
-        </FadeIn>
+        </div>
       </div>
 
       <SiteFooter />

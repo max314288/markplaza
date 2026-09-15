@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 const links = [
-  { label: "Privacidad", href: "#" },
-  { label: "Términos", href: "#" },
+  { label: "Privacidad", href: "/privacidad" },
+  { label: "Términos", href: "/terminos" },
   { label: "Libro de Reclamaciones", href: "/libro-de-reclamaciones" },
 ];
 
@@ -10,13 +12,13 @@ export function SiteFooter() {
       <div className="max-w-[1440px] mx-auto border-t border-primary-fixed-dim/10 pt-10 flex flex-col items-center gap-6">
         <div className="flex flex-wrap justify-center gap-x-12 gap-y-3">
           {links.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="font-sans text-[10px] font-semibold uppercase tracking-[0.3em] text-on-surface-variant/40 hover:text-primary-fixed-dim transition-colors"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
         <p
