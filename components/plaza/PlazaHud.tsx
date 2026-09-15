@@ -6,6 +6,7 @@ const footerLinks = [
   { label: "Tiendas", href: "/tiendas" },
   { label: "Contacto", href: "/contacto" },
   { label: "Acceder", href: "/login" },
+  { label: "Reclamaciones", href: "/libro-de-reclamaciones" },
 ];
 
 const focusRing =

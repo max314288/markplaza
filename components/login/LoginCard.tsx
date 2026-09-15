@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { Field, Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
 import { Float } from "@/components/motion/Float";
+import { CONTACTO, telHref } from "@/lib/contacto";
 
 export function LoginCard() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [enviado, setEnviado] = useState(false);
 
+  // Sin backend todavía: no hay cuentas ni verificación. Antes esto quedaba
+  // en "Entrando…" para siempre — ver PARTE A del plan de reparación.
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setIsLoading(true);
+    setEnviado(true);
   }
 
   return (
@@ -29,80 +32,71 @@ export function LoginCard() {
           <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary-container/50 to-transparent mx-auto mt-6" />
         </div>
 
-        {/* Form */}
-        <form className="w-full space-y-7" onSubmit={handleSubmit}>
-          <Field label="ID Universal">
-            <Input
-              type="email"
-              name="email"
-              placeholder="residente@markplaza.com"
-              autoComplete="email"
-              spellCheck={false}
-            />
-          </Field>
-
-          <Field
-            label="Frase clave"
-            trailing={
-              <a
-                href="#"
-                className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-fixed-dim/60 hover:text-primary-fixed-dim transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
+        {enviado ? (
+          <div role="status" className="w-full flex gap-4 rounded-2xl border border-primary-fixed-dim/20 bg-surface-container-high/60 p-6">
+            <Info className="size-5 text-primary-fixed-dim shrink-0 mt-0.5" strokeWidth={1.5} aria-hidden="true" />
+            <div className="space-y-3">
+              <p className="font-serif text-on-surface text-[15px] leading-relaxed">
+                El acceso con cuenta estará disponible pronto. Mientras tanto, escríbenos directo:
+              </p>
+              <p className="font-sans text-[13px] text-on-surface-variant space-x-1">
+                <a href={`mailto:${CONTACTO.email}`} className="text-primary-fixed-dim underline underline-offset-2 hover:text-primary">
+                  {CONTACTO.email}
+                </a>
+                <span aria-hidden="true">·</span>
+                <a href={telHref(CONTACTO.telefonos[0])} className="text-primary-fixed-dim underline underline-offset-2 hover:text-primary">
+                  {CONTACTO.telefonos[0]}
+                </a>
+              </p>
+              <button
+                type="button"
+                onClick={() => setEnviado(false)}
+                className="font-sans text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-fixed-dim hover:text-primary underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
               >
-                ¿Acceso perdido?
-              </a>
-            }
-          >
-            <Input
-              type="password"
-              name="password"
-              placeholder="••••••••••••"
-              autoComplete="current-password"
-            />
-          </Field>
+                Volver
+              </button>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Form */}
+            <form className="w-full space-y-7" onSubmit={handleSubmit}>
+              <Field label="Correo electrónico">
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="tu@correo.com"
+                  autoComplete="email"
+                  spellCheck={false}
+                  required
+                />
+              </Field>
 
-          <Button
-            type="submit"
-            variant="primary"
-            className="w-full mt-8 py-5"
-            disabled={isLoading}
-            aria-busy={isLoading}
-          >
-            {isLoading ? (
-              <>
-                <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-                <span>Entrando…</span>
-              </>
-            ) : (
-              <>
+              <Field label="Contraseña">
+                <Input
+                  type="password"
+                  name="password"
+                  placeholder="••••••••••••"
+                  autoComplete="current-password"
+                  required
+                />
+              </Field>
+
+              <Button type="submit" variant="primary" className="w-full mt-8 py-5">
                 <span>Entrar al distrito</span>
                 <ArrowRight className="size-4" strokeWidth={2} aria-hidden="true" />
-              </>
-            )}
-          </Button>
-        </form>
+              </Button>
+            </form>
 
-        {/* Divider + social */}
-        <Divider label="Verificación de identidad" className="my-10 w-full" />
+            {/* Divider + estado */}
+            <Divider label="Próximamente" className="my-10 w-full" />
 
-        <div className="flex gap-4 w-full">
-          <Button as="button" variant="outline" className="flex-1 py-4">
-            Google
-          </Button>
-          <Button as="button" variant="outline" className="flex-1 py-4">
-            Apple
-          </Button>
-        </div>
-
-        {/* Registro */}
-        <p className="mt-12 font-sans text-[13px] text-on-surface-variant/60 tracking-wide text-center">
-          ¿Buscas residencia?{" "}
-          <a
-            href="#"
-            className="text-primary-fixed-dim font-semibold ml-1 hover:text-primary transition-colors border-b border-primary-fixed-dim/30 hover:border-primary focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-fixed-dim/70 focus-visible:rounded"
-          >
-            Solicita tu Atelier
-          </a>
-        </p>
+            <p className="font-sans text-[12px] text-on-surface-variant/60 tracking-wide text-center leading-relaxed">
+              El registro de cuentas y el acceso con Google estarán disponibles cuando el portal
+              conecte con un sistema de cuentas real.
+            </p>
+          </>
+        )}
       </div>
     </Float>
   );

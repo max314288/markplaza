@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Mail, MapPin, Phone } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { CONTACTO, telHref } from "@/lib/contacto";
 
 type Channel = {
   icon: LucideIcon;
@@ -13,19 +14,19 @@ const channels: Channel[] = [
   {
     icon: Phone,
     label: "Línea prioritaria",
-    value: "+1 (888) MARKPLAZA-0",
-    href: "tel:+18886275292920",
+    value: CONTACTO.telefonos[0],
+    href: telHref(CONTACTO.telefonos[0]),
   },
   {
     icon: Mail,
-    label: "Correo seguro",
-    value: "concierge@markplaza.com",
-    href: "mailto:concierge@markplaza.com",
+    label: "Correo",
+    value: CONTACTO.email,
+    href: `mailto:${CONTACTO.email}`,
   },
   {
     icon: MapPin,
-    label: "Nexo virtual",
-    value: "Distrito 0, La Aguja Obsidiana",
+    label: "Domicilio",
+    value: `${CONTACTO.direccion.linea1}, ${CONTACTO.direccion.linea2}`,
   },
 ];
 

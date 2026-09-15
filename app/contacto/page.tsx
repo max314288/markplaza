@@ -7,6 +7,7 @@ import { DirectChannels } from "@/components/contacto/DirectChannels";
 import { MapWidget } from "@/components/contacto/MapWidget";
 import { SocialLinks } from "@/components/contacto/SocialLinks";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { CONTACTO, REDES } from "@/lib/contacto";
 
 export const metadata: Metadata = {
   title: "Contacto · Atención al Cliente",
@@ -68,10 +69,10 @@ export default function ContactoPage() {
           <MapWidget className="flex-1 min-h-[140px]" />
           <SocialLinks
             className="flex-none p-6"
-            whatsapp="https://wa.me/18888627529"
-            instagram="https://instagram.com/markplaza"
-            facebook="https://facebook.com/markplaza"
-            tiktok="https://tiktok.com/@markplaza"
+            whatsapp={CONTACTO.whatsapp}
+            instagram={REDES.instagram}
+            facebook={REDES.facebook}
+            tiktok={REDES.tiktok}
           />
         </FadeIn>
       </div>
