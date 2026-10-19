@@ -88,13 +88,14 @@ export function SocialLinks({
       <div className="flex items-center gap-4">
         {SOCIALS.map(({ key, label, glow, iconColor, icon }) => {
           const href = hrefs[key];
+          if (!href) return null;
           return (
             <a
               key={key}
-              href={href ?? "#"}
+              href={href}
               aria-label={label}
-              target={href ? "_blank" : undefined}
-              rel={href ? "noopener noreferrer" : undefined}
+              target="_blank"
+              rel="noopener noreferrer"
               className={cn(
                 "group relative flex items-center justify-center size-12 rounded-2xl",
                 "glass-panel-soft border border-primary-fixed-dim/15",

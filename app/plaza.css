@@ -8,20 +8,39 @@
    ============================================================ */
 
 .plaza-page {
-  display: grid;
-  place-items: center;
+  /* Franja reservada a la barra flotante, encima del lienzo. */
+  --plaza-bar-band: 76px;
+  display: flex;
+  flex-direction: column;
   min-height: 100svh;
   width: 100%;
   background-color: var(--color-plaza-cream);
   color: var(--color-plaza-ink);
 }
 
+/*
+  La barra va fuera del lienzo y no en `--px`: dentro chocaría con el
+  titular (medido contra ORIGINAL.png) y sus objetivos táctiles deben
+  conservar tamaño real a cualquier ancho.
+*/
+.plaza-bar-slot {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--plaza-bar-band);
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
 .plaza-frame {
   position: relative;
   /* Entra completo en alto y en ancho: nunca hay scroll vertical. */
-  width: min(100%, calc(100svh * 1376 / 768));
+  width: min(100%, calc((100svh - var(--plaza-bar-band)) * 1376 / 768));
   aspect-ratio: 1376 / 768;
-  margin-inline: auto;
+  margin: auto;
   display: grid;
   container-type: size;
   container-name: plaza;
@@ -178,8 +197,12 @@
 
 @media (max-width: 767px) {
   .plaza-page {
-    place-items: start center;
-    padding-block: 2rem 3rem;
+    --plaza-bar-band: 68px;
+    padding-bottom: 3rem;
+  }
+
+  .plaza-bar-slot {
+    padding-inline: 0.75rem;
   }
 
   .plaza-frame {

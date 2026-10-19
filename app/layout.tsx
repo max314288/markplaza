@@ -17,14 +17,27 @@ const manrope = Manrope({
   display: "swap",
 });
 
+const description =
+  "MarkPlaza: tu distrito de compras. Un directorio ilustrado de tiendas (ferretería, boutique, estampados, juguetería y librería) y marketplaces asociados.";
+
 export const metadata: Metadata = {
   title: {
     default: "MarkPlaza · Distrito Comercial Virtual",
     template: "%s · MarkPlaza",
   },
-  description:
-    "MarkPlaza es un portal de tiendas premium: arquitectura digital, comercio espacial y experiencias curadas para residentes y visitantes del distrito.",
+  description,
   metadataBase: new URL("https://savemarks.com"),
+  openGraph: {
+    title: "MarkPlaza · Tu distrito de compras",
+    description,
+    locale: "es_PE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MarkPlaza · Tu distrito de compras",
+    description,
+  },
 };
 
 export default function RootLayout({

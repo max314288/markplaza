@@ -92,7 +92,7 @@ Reusable CSS utilities (also in `globals.css`, under `@layer utilities`):
 |---|---|
 | `.glass-panel` | Heavy frosted glass card (blur 40px, gold border) |
 | `.glass-panel-soft` | Lighter glass variant |
-| `.gold-glow` | Box shadow glow + hover lift — avoid on elements that also have `transition-*` Tailwind classes |
+| `.gold-glow` | Box shadow glow + hover lift; lists explicit properties (not `transition: all`) and gates the lift under `prefers-reduced-motion: no-preference`, so it's safe to combine with `transition-*` Tailwind classes |
 | `.gold-text-glow` | Text glow for hero headings |
 | `.input-glass` | Input background + focus border (already handles `outline: none` internally) |
 | `.gold-divider` | 1px gradient horizontal rule |

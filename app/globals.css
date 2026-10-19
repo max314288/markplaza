@@ -40,6 +40,10 @@
   --color-outline: #8a816b;
   --color-outline-variant: #4d4635;
 
+  /* Error (mensajes de validación) — el resto de la paleta no trae rojo */
+  --color-error: #e5a8a3;
+  --color-on-error: #3b0d0a;
+
   /* ----------------------------------------------------------
      "Plaza de día" — paleta de la escena ilustrada de `/`.
      Muestreada de docs/disegnefront/ORIGINAL.png. Solo la usa la
@@ -138,11 +142,18 @@ html:has(#plaza-dia) ::selection {
 
   .gold-glow {
     box-shadow: 0 0 20px rgba(229, 211, 178, 0.2);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .gold-glow:hover {
     box-shadow: 0 0 35px rgba(229, 211, 178, 0.4);
-    transform: translateY(-1px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .gold-glow {
+      transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .gold-glow:hover {
+      transform: translateY(-1px);
+    }
   }
 
   .gold-text-glow {
