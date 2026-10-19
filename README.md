@@ -15,18 +15,14 @@ Construido con **Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Moti
 | [`/contacto`](app/contacto/page.tsx) | **Atención al cliente** — formulario, canales directos y mapa. |
 | [`/login`](app/login/page.tsx) | **Acceso** — solo visual, sin autenticación. |
 
-## Cómo arrancar
-
-```bash
-npm install
-npm run dev
-```
 
 Abre [http://localhost:3000](http://localhost:3000).
 
+## Cómo arrancar
 ## Scripts
 
 ```bash
+npm install
 npm run dev     # Dev server
 npm run build   # Build estático -> carpeta out/
 npm run lint    # ESLint

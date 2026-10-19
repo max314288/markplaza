@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Building2, Snowflake, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
@@ -45,9 +46,9 @@ export function VisionHero() {
               strokeWidth={1.5}
             />
             <div>
-              <h3 className="font-sans text-[12px] font-semibold uppercase tracking-[0.2em] text-on-surface mb-1">
+              <h2 className="font-sans text-[12px] font-semibold uppercase tracking-[0.2em] text-on-surface mb-1">
                 {title}
-              </h3>
+              </h2>
               <p className="font-serif text-on-surface-variant text-[14px] leading-relaxed opacity-80">
                 {description}
               </p>
@@ -57,18 +58,19 @@ export function VisionHero() {
       </ul>
 
       <div className="flex items-center gap-8 flex-wrap">
-        <Button as="button" variant="primary">
-          Explorar Atelier
+        <Button as={Link} href="/tiendas" variant="primary">
+          Explorar tiendas
         </Button>
         <a
           href="#vision"
-          className="group inline-flex items-center gap-2 cursor-pointer border-b border-transparent hover:border-primary-fixed-dim transition-all pb-1"
+          className="group inline-flex items-center gap-2 cursor-pointer border-b border-transparent hover:border-primary-fixed-dim transition-[border-color] pb-1"
         >
           <span className="font-sans text-[11px] font-semibold uppercase tracking-[0.25em] text-on-surface">
             La historia
           </span>
           <ArrowRight
-            className="size-4 text-primary-fixed-dim group-hover:translate-x-1 transition-transform"
+            aria-hidden="true"
+            className="size-4 text-primary-fixed-dim motion-safe:group-hover:translate-x-1 transition-transform"
             strokeWidth={1.5}
           />
         </a>

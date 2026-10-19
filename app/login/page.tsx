@@ -27,38 +27,39 @@ export default function LoginPage() {
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-24">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center gap-16 px-6 py-24">
         <LoginCard />
-      </div>
 
-      {/* Footer minimalista */}
-      <footer className="fixed bottom-0 left-0 right-0 z-20 px-10 pb-10">
-        <div className="max-w-[1440px] mx-auto pt-6 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-primary-fixed-dim/10">
-          <p className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30">
-            © {new Date().getFullYear()} MarkPlaza · Distrito Comercial Virtual
-          </p>
-          <div className="flex gap-10">
-            <Link
-              href="#"
-              className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
-            >
-              Privacidad
-            </Link>
-            <Link
-              href="#"
-              className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
-            >
-              Términos
-            </Link>
-            <Link
-              href="#"
-              className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
-            >
-              Soporte
-            </Link>
+        {/* Footer minimalista: en flujo normal, no `fixed` — con poca altura de
+            viewport tapaba la tarjeta de login. */}
+        <footer className="w-full">
+          <div className="max-w-[1440px] mx-auto pt-6 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-primary-fixed-dim/10">
+            <p className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30">
+              © {new Date().getFullYear()} MarkPlaza · Distrito Comercial Virtual
+            </p>
+            <div className="flex gap-10">
+              <Link
+                href="/privacidad"
+                className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
+              >
+                Privacidad
+              </Link>
+              <Link
+                href="/terminos"
+                className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
+              >
+                Términos
+              </Link>
+              <Link
+                href="/contacto"
+                className="font-sans text-[9px] uppercase tracking-[0.3em] text-on-surface-variant/30 hover:text-primary-fixed-dim transition-colors"
+              >
+                Soporte
+              </Link>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </div>
   );
 }

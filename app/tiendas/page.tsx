@@ -19,8 +19,10 @@ export default function TiendasPage() {
     <div className="min-h-screen bg-surface-container-lowest relative overflow-hidden">
       <SiteHeader />
 
+      {/* Encabezado a la vista sin scroll: sin `FadeIn` para no dejarlo en
+          blanco durante el primer render (sí se anima la grilla de abajo). */}
       <div className="relative z-10 pt-36 pb-24 max-w-[1440px] mx-auto px-6 md:px-10">
-        <FadeIn>
+        <div>
           <span className="font-sans text-[11px] font-bold text-primary-fixed-dim uppercase tracking-[0.4em] mb-6 block">
             Directorio
           </span>
@@ -32,7 +34,7 @@ export default function TiendasPage() {
             proporciones y su propia luz.
           </p>
           <Divider className="mt-12 opacity-60" />
-        </FadeIn>
+        </div>
 
         <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SHOPS.map((shop, i) => (
