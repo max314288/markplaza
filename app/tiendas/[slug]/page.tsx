@@ -6,6 +6,7 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { Button } from "@/components/ui/Button";
 import { Divider } from "@/components/ui/Divider";
+import { RememberShop } from "@/components/plaza/RememberShop";
 import { SHOPS, findShop } from "@/lib/plaza/shops";
 
 export function generateStaticParams() {
@@ -32,6 +33,7 @@ export default async function TiendaPage(props: PageProps<"/tiendas/[slug]">) {
 
   return (
     <div className="min-h-screen bg-surface-container-lowest relative overflow-hidden">
+      <RememberShop slug={shop.slug} />
       <SiteHeader />
 
       {/*
